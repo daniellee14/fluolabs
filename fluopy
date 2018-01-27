@@ -1,0 +1,42 @@
+import fluo
+
+UP = 0
+RIGHT = 1
+DOWN = 2 
+LEFT = 3
+
+def setup():
+    size(400, 400)
+
+    
+def draw():
+    background(0)
+    stroke(random(255), random(255), random(255))
+    strokeWeight(2)
+    
+    translate(width/2, height/2)
+    fluo.showGrid()
+    #line(-50, 0, 50, 0)
+    #line(50, 0, 50, 100)
+    
+    moveForward(-50, 0, RIGHT)
+    moveForward(50, 0, DOWN)
+    moveForward(50, 100, LEFT)
+    moveForward(-50, 100, UP)
+    
+    
+def moveForward(x, y, dir=RIGHT):
+    if (dir == UP):
+        # moveUP
+        line(x, y, x, y - 100)
+    elif (dir == RIGHT):
+        # movingRIGHT
+        line(x, y, x + 100, y)
+    elif (dir == DOWN):
+        # movingDOWN
+        line(x, y, x, y + 100)
+    else:
+        # movingLEFT
+         line(x, y, x - 100, y)
+        
+              
