@@ -1,0 +1,94 @@
+#sketch.py 
+import fluo
+
+UP = 0
+RIGHT = 1
+DOWN = 2
+LEFT = 3
+
+def setup():
+    global angle, x, y, xspeed, yspeed
+    #size(400, 400)
+    fullScreen()
+    angle = 5
+    x = random(width)
+    y = random(height)
+    xspeed = 3
+    yspeed = 4
+    
+def draw():
+    global annaX, annaY, annaDir, angle, x, y, xspeed, yspeed
+    #background(0)
+
+    stroke(random(256),random(256), random(256))
+    
+    strokeWeight(2)
+    translate(x, y )
+   
+    annaX = 0
+    annaY = 0
+    annaDir = RIGHT
+    
+    #fluo.showGrid()
+    
+    rotate(radians(angle))
+    for j in range(13):
+        if (j % 3== 0):
+            stroke(255, 0, 0)
+        elif( j % 3 == 1):
+            stroke(0, 255, 0)
+        else:
+            stroke(0, 0, 255)
+        for i in range(4):
+            moveForward()
+            turn(RIGHT)
+        rotate(radians(120))
+        
+   
+
+    angle += 3
+    
+    x += xspeed
+    y += yspeed
+    
+    if (x > width or x < 0):
+        xspeed *= -1
+        
+    if (y > height or y < 0):
+        yspeed *= -1
+
+def keyPressed():
+    background(0)    
+    
+def turn(dir=RIGHT):
+    global annaDir
+    if (dir == RIGHT):
+        annaDir = annaDir + 1
+    else: 
+        annaDir = annaDir - 1
+    
+    if (annaDir > 3):
+        annaDir = annaDir % 4
+        
+    if (annaDir < 0):
+        annaDir = annaDir + 4
+        
+def moveForward():
+    global annaX, annaY, annaDir
+    x = annaX
+    y = annaY
+    dir = annaDir
+     
+    amount = 50
+    if (dir == UP):
+        line(x, y, x, y - amount)
+        annaY = y - 100
+    elif (dir == RIGHT):
+        line(x, y, x + amount, y)
+        annaX = x + amount
+    elif (dir == DOWN):
+        line(x, y, x, y + amount)
+        annaY = y + amount
+    else:
+        line(x, y, x - amount, y)
+        annaX = x - amount
