@@ -1,0 +1,52 @@
+letters = []
+letters_x = []
+letters_y = []
+letters_col = []
+
+def setup():
+    size(600,600)
+    background(220)
+    textSize(32)
+    
+def draw():
+    background(220)
+
+    for i in range (len(letters)):
+        fill(letters_col[i])
+        text(letters[i], letters_x[i], letters_y[i])
+        
+        letters_y[i] += 1
+        if (letters_y[i] > height):
+            letters_y[i] = 0
+            
+    fill(0)
+    text(str(len(letters)), width - 100, 32)
+        
+def keyTyped():
+    if (key == ' '):
+        del letter[:]
+        del letters_x[:]
+        del letters_y[:]
+        del letters_col[:]
+    
+    elif (key == '1'):
+        if (len(letters) > 0):
+            del letter[:]
+            del letters_x[:]
+            del letters_y[:]
+            del letters_col[:]
+    elif (key == '2'):
+        if (len(letters) > 1):
+            del letters[0:2]
+            del letters_x[0:2]
+            del letters_y[0:2]
+            del letters_col[0:2]
+                
+    else:
+        addLetter(key)
+            
+def addLetter(ch):
+    letters.append(ch)
+    letters_x.append(random(width))
+    letters_y.append(0)
+    letters_col.append(color(random(256), ran
