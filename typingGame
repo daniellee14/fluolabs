@@ -1,0 +1,61 @@
+ add_library('minim')
+dict = {
+        'remuneration': 'paying for goods or services or to recompense for losses',
+        'bilk': 'cheat somebody out of what is due, especially money',
+        'engender': 'call forth',
+        'harangue': 'a loud bombastic declamation expressed with strong emotion',
+        'abrogate': 'revoke formally'
+        }
+
+word = None
+mean = None
+under = None
+gameOver = False
+
+def setup(): 
+    global typeSound
+    size(800, 800)
+    setWord()
+    textSize(30)
+    textAlign(CENTER)
+    minim = Minim(this)
+    typeSound = minim.loadSample("type.mp3")
+
+def draw():
+    background(0)
+    
+    if (gameOver):
+        text("Game Over:", width/2, height/2)
+        noLoop()
+        
+    #word
+    fill(0, 255, 0)
+    text(under, width/2, 50)
+    
+    #meaning
+    fill(255)
+    text(mean, 0, height - 100, width, 100)
+    
+    
+def setWord():
+    global word, mean, under
+    if (len(dict) == 0):
+        gameOver = True
+        word = None
+        mean = None
+    else:
+        word, mean = dict.popitem()
+        under = '_' * len(word)
+
+def keyTyped():
+    global under
+    inx = under.index('_')
+    if (word[inx] == key):
+        typeSound.trigger()
+        under = under[:inx] + key + under[inx+1:]
+        # check if typed everything
+    if (inx == len(word) -1):
+            setWord()
+        
+    
+   
