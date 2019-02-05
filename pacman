@@ -1,0 +1,65 @@
+pRIGHT = 0 
+pDOWN = 90
+pLEFT = 180
+pUP = 270
+
+mouth = 45
+mSpeed = -3
+angle = pRIGHT
+diameter = 80
+
+
+def setup():
+    global x, y
+    size(640, 360)
+    x = width/2
+    y = height/2
+    
+def draw():
+    global mouth, mSpeed, x, y, angle
+    background(0)
+    
+    fill(255, 255, 0)
+    #ellipse(width/2, height/2, 80, 80)
+    textSize(20)
+    text("mouth=" + str(mouth), width/2, height/4)
+    text("mSpeed=" + str(mSpeed), width/2, height/4 + 20)
+    text("angle=" + str(angle), width/2, height/4 +40)
+    
+    translate(x, y)
+    rotate(radians(angle))
+    arc(0, 0, diameter, diameter, radians(mouth), radians(360 - mouth))
+    
+    #update mouth
+    mouth += mSpeed
+    if (mouth < 0 or mouth > 45):
+        mSpeed *= -1
+        
+    #update position
+    if (angle == pRIGHT):
+        x += 1   
+    elif (angle == pDOWN):
+        y += 1
+    if (angle == pUP):
+        y -= 1   
+    elif (angle == pLEFT):
+        x -= 1
+        
+    #check boundary
+    if (x + (diameter/2) > width):
+        angle = pLEFT
+    if (x + (diameter/2) < width):
+        angle = pRIGHT
+    
+    
+def keyPressed():
+    global angle, x, y
+    if(keyCode == RIGHT):
+        angle = pRIGHT
+    elif (keyCode == DOWN):
+        angle = pDOWN
+    if(keyCode == UP):
+        angle = pUP
+    elif (keyCode == LEFT):
+        angle = pLEFT
+
