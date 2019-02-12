@@ -1,0 +1,81 @@
+
+mouth = 45 
+mSpeed = -3
+angle = 0
+diameter = 80
+radius = diameter/2
+speed = 1
+
+
+
+def setup():
+    global x, y
+    size(640, 360)
+    x = width/2
+    y = height/2
+    print(RIGHT)
+    print(DOWN)
+    print(LEFT)
+    print(UP)
+
+    
+def draw():
+    global mouth, mSpeed, x, y, angle
+    background(0)
+    
+    fill(255, 255, 0)
+    #ellipse(width/2, height/2, 80, 80)
+    textSize(20)
+    text("mouth=" + str(mouth), width/2, height/4)
+    text("mSpeed=" + str(mSpeed), width/2, height/4 + 20)
+    text("angle=" + str(angle), width/2, height/4 + 40)
+    
+    translate(x, y)
+    rotate(radians(angle))
+    arc(0, 0, diameter, diameter, radians(mouth), radians(360 - mouth))
+    
+    # update pacman mouth
+    mouth += mSpeed
+    if (mouth < 0 or mouth > 45):
+        mSpeed *= -1
+        
+    # update pacman position
+    if (angle == 0 or angle == 180):
+        x += speed
+    else:
+         y += speed
+         
+    
+    
+    # check boundary for left and right wall
+    if (x + radius > width):
+        x = width - radius
+    elif (x - radius < 0):
+        x = radius    
+        
+    # check boundary for up and down portal    
+    # if (y - radius < 0):
+    #     y = radius
+    # elif (y + radius > height):
+    #       y = height - radius
+    if (y + radius < 0):
+        y = height + radius
+    elif(y - radius > height):
+        y = 0 - radius
+
+    
+        
+def keyPressed():
+    global angle, speed
+    if (keyCode == RIGHT):
+        angle = 0
+        speed = 1
+    elif (keyCode == DOWN):
+        angle = 90
+        speed = 1
+    elif (keyCode == LEFT):
+        angle = 180
+        speed = -1
+    elif (keyCode == UP):
+        angle = 270
+        speed = -1
