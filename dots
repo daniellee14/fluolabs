@@ -1,0 +1,87 @@
+catx = []
+caty = []
+
+
+speedx = []
+speedy = []
+diam = 30
+catCount = 0
+
+def setup():
+    size(600, 600)
+    
+def draw():
+    #background(0)
+    fill(0x110000000)
+    rect(0, 0, width, height)
+    
+    # show
+    for i in range(len(catx)):
+        if (i % 3 == 0):
+            fill(255)
+            circle(catx[i], caty[i], diam)
+        elif (i % 3 == 1):
+            fill(255, 0, 0)
+            circle(catx[i], caty[i], diam)
+        else:
+            fill(random(256), random(256), random(256))
+            circle(catx[i], caty[i], diam)
+        
+    # update
+    for i in range(len(catx)):
+        if (i % 3 == 0):
+            catx[i] += speedx[i]
+        elif (i % 3 == 1):
+            caty[i] += speedy[i]
+        else:
+            catx[i] += speedx[i]
+            caty[i] += speedy[i]
+    
+
+    
+    
+    # boundary checking
+    for i in range(len(catx)):
+        if (i % 3 == 0):
+            if (catx[i] < 0 or catx[i] > width):
+                speedx[i] *= -1
+        elif (i % 3 == 1):
+            if (caty[i] < 0 or caty[i] > width):
+                speedy[i] *= -1
+        else:
+            if (catx[i] < 0 or catx[i] > width):
+                speedx[i] *= -1
+            if (caty[i] < 0 or caty[i] > width):
+                speedy[i] *= -1      
+     
+    if (mousePressed):
+          createCat()     
+                            
+                
+                    
+    
+#def mousePressed():
+    #global catCount
+    #catx.append(mouseX)
+#caty.append(mouseY)
+ #   speedx.append(1)
+  #  speedy.append(1)
+   # catCount += 1
+   
+def createCat():
+    global catCount
+    catx.append(mouseX)
+    caty.append(mouseY)
+    speedx.append(1)
+    speedy.append(1)
+    catCount += 1
+
+def keyPressed():
+    if (key == ' '):
+        del catx[:]
+        del caty[:]
+        del speedx[:]
+        del speedy[:]
+        catCount = 0
+    
+       
